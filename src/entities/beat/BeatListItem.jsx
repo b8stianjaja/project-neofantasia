@@ -5,8 +5,8 @@ import './BeatListItem.css';
 
 const BeatListItem = ({ beat, isPlaying, onPlay }) => {
   const audioRef = useRef(null);
-  // const { addToCart, cartItems } = useCart();
-  // const isInCart = cartItems.some(item => item.id === beat.id);
+  const { addToCart, cartItems } = useCart(); // Uncomment this line
+  const isInCart = cartItems.some(item => item.id === beat.id); // Uncomment this line
 
   useEffect(() => {
     if (isPlaying) {
@@ -19,7 +19,7 @@ const BeatListItem = ({ beat, isPlaying, onPlay }) => {
 
   const handleAddToCart = (e) => {
     e.stopPropagation(); // Prevent the row from playing when clicking cart
-    // addToCart(beat);
+    addToCart(beat); // Uncomment this line
     console.log('Added to cart:', beat.title); // Placeholder
   };
   
@@ -52,10 +52,9 @@ const BeatListItem = ({ beat, isPlaying, onPlay }) => {
         <button 
           className="add-to-cart-btn" 
           onClick={handleAddToCart}
-          // disabled={isInCart}
+          disabled={isInCart} // Uncomment this line
         >
-          {/* {isInCart ? '✓' : '+'}  You can use this when context is wired */}
-          +
+          {isInCart ? '✓' : '+'} {/* Uncomment this line */}
         </button>
       </div>
       <audio ref={audioRef} src={beat.audioSrc} loop />
