@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom"
 import HomePage from "../pages/HomePage/HomePage.jsx"
 import BeatsPage from "../pages/BeatsPage/BeatsPage.jsx"
 import ContactPage from "../pages/ContactPage/ContactPage.jsx"
+import Navbar from "../components/Navbar/Navbar.jsx"
 
 function App() {
 

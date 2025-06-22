@@ -1,6 +1,6 @@
 import React from 'react';
-import { beats } from '../../beat/beats';
-import BeatCard from '../../beat/BeatCard';
+import { beats } from '../../entities/beat/beats';
+import BeatCard from '../../entities/beat/BeatCard';
 import './BeatsPage.css';
 
 function BeatsPage() {

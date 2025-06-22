@@ -1,0 +1,18 @@
+.beats-page {
+    padding: 2rem;
+}
+
+.beats-page-title {
+    text-align: center;
+    font-family: 'Cinzel', serif;
+    font-size: 2.5rem;
+    color: #00ffff;
+    margin-bottom: 2rem;
+}
+
+.beats-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+}

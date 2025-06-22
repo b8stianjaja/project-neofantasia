@@ -1,0 +1,38 @@
+.home-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    text-align: center;
+}
+
+.home-title {
+    font-family: 'Cinzel', serif;
+    font-size: 3rem;
+    color: #00ffff;
+}
+
+.home-subtitle {
+    font-size: 1.5rem;
+    color: #ccc;
+}
+
+.home-cta {
+    margin-top: 2rem;
+}
+
+.crystal-button {
+  background: transparent;
+  border: 1px solid #00ffff;
+  color: #00ffff;
+  padding: 15px 30px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  transition: background 0.3s, color 0.3s;
+}
+
+.crystal-button:hover {
+  background: #00ffff;
+  color: #000;
+}
