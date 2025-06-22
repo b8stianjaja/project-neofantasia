@@ -1,21 +1,41 @@
 // src/pages/HomePage/HomePage.jsx
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import './HomePage.css';
 
 const HomePage = () => {
-  return (
-    <div className="title-screen-container">
-      <div className="title-logo-wrapper">
-        <h1 className="title-logo">BeatForge</h1>
-      </div>
+  // A simple function for a hover sound effect (optional)
+  const playHoverSound = () => {
+    // new Audio('/sounds/ui-hover.wav').play();
+  };
 
-      <nav className="bottom-menu-nav">
-        <Link to="/beats" className="bottom-menu-button">Begin</Link>
-        <div className="menu-separator"></div>
-        <Link to="/cart" className="bottom-menu-button disabled">Cart</Link>
-        <div className="menu-separator"></div>
-        <Link to="/contact" className="bottom-menu-button">Contact</Link>
+  return (
+    <div className="home-container">
+      <div className="home-logo">
+        <h1>neofantasia</h1>
+      </div>
+      <nav className="home-menu">
+        <NavLink 
+          to="/beats" 
+          className="home-menu-item"
+          onMouseEnter={playHoverSound}
+        >
+          Library
+        </NavLink>
+        <NavLink 
+          to="/cart" 
+          className="home-menu-item"
+          onMouseEnter={playHoverSound}
+        >
+          Cart
+        </NavLink>
+        <NavLink 
+          to="/contact" 
+          className="home-menu-item"
+          onMouseEnter={playHoverSound}
+        >
+          Contact
+        </NavLink>
       </nav>
     </div>
   );

@@ -1,63 +1,45 @@
 /* src/pages/HomePage/HomePage.css */
-.title-screen-container {
+.home-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  min-height: 100vh;
+  padding: 4rem 5%;
+  box-sizing: border-box;
+}
+
+.home-logo h1 {
+  font-family: var(--font-primary);
+  font-size: 3.5rem;
+  font-weight: 400;
+  color: var(--color-text);
+  margin: 0;
+  letter-spacing: 1px;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.7);
+}
+
+.home-menu {
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Pushes logo up and nav down */
-  align-items: center;
-  min-height: 100vh;
-  padding: 4rem 0;
-  box-sizing: border-box;
-  animation: fadeIn 2s ease-in-out;
+  align-items: flex-end;
+  gap: 0.5rem;
 }
 
-.title-logo-wrapper {
-  flex-grow: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.title-logo {
-  font-family: var(--vn-font);
-  font-size: 6rem;
-  font-weight: 700;
-  color: var(--primary-color);
-  text-align: center;
-}
-
-.bottom-menu-nav {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  padding: 1rem 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.5), transparent); /* Subtle gradient for readability */
-}
-
-.bottom-menu-button {
-  font-family: var(--vn-font);
-  color: var(--text-color);
+.home-menu-item {
+  font-family: var(--font-primary);
+  font-size: 1.75rem;
+  font-weight: 300;
+  color: var(--color-text);
   text-decoration: none;
-  font-size: 1.8rem;
-  font-weight: 500;
-  padding: 0 2rem;
-  letter-spacing: 1px;
-  transition: color 0.3s, text-shadow 0.3s;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease;
+  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+  position: relative;
+  text-align: right;
 }
 
-.bottom-menu-button:hover {
-  color: var(--highlight-color);
-  text-shadow: 0 0 5px var(--highlight-color);
-}
-
-.menu-separator {
-  height: 1.5rem;
-  width: 1px;
-  background-color: rgba(255, 255, 255, 0.5);
-}
-
-.bottom-menu-button.disabled {
-  color: #888;
-  pointer-events: none;
-  text-shadow: none;
+.home-menu-item:hover,
+.home-menu-item.active {
+  color: var(--color-highlight);
+  transform: translateX(-10px);
 }

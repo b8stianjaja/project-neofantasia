@@ -1,56 +1,59 @@
-/* src/app/App.css */
+/* Using a more modern, clean font stack */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500&display=swap');
+
 :root {
-  --vn-font: 'Shippori Mincho', serif;
-  --primary-color: #ffffff;
-  --highlight-color: #a8d8f8; /* Softer, more atmospheric blue */
-  --background-color: #000000;
-  --text-color: #ffffff;
-  --ui-bg: rgba(10, 25, 40, 0.7); /* Slightly bluer UI background */
-  --ui-border: rgba(255, 255, 255, 0.5);
+  --font-primary: 'Noto Sans JP', 'Shippori Mincho', sans-serif;
+  
+  /* A softer, more ethereal color palette */
+  --color-text: #e0e0e0;
+  --color-text-muted: #888;
+  --color-background: #0d1117; /* A very dark, soft blue/black */
+  --color-highlight: #6ab7ff; /* A clean, bright blue for highlights */
+  --color-highlight-glow: rgba(106, 183, 255, 0.5);
+  
+  /* UI Elements */
+  --ui-background: rgba(16, 22, 32, 0.7);
+  --ui-border: rgba(106, 183, 255, 0.2);
+  --ui-border-hover: rgba(106, 183, 255, 0.6);
 }
 
-body.vn-body {
+body {
   margin: 0;
-  font-family: var(--vn-font);
-  background-color: var(--background-color);
-  background-image: url('/vn-background.jpg');
+  font-family: var(--font-primary);
+  background-color: var(--color-background);
+  color: var(--color-text);
+  
+  /* Replace with a high-quality, atmospheric background image */
+  background-image: url('/background.jpg'); /* SUGGESTION: Use a serene, beautiful image */
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  color: var(--text-color);
-  min-height: 100vh;
-  overflow-x: hidden;
-  font-weight: 500; /* Use a slightly bolder weight for clarity */
 }
 
-.app-container {
-  background-color: rgba(0, 0, 0, 0.3);
+#root {
+  backdrop-filter: blur(3px) brightness(0.9);
   min-height: 100vh;
+}
+
+/* General Page Styling */
+.page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.page-title {
+  font-size: 2.5rem;
+  font-weight: 300;
+  letter-spacing: 2px;
+  color: var(--color-highlight);
+  border-bottom: 1px solid var(--ui-border);
+  padding-bottom: 1rem;
+  margin-bottom: 2rem;
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-/* --- Text Shadow Rules for Readability --- */
-
-h1, h2, h3, h4, h5, h6 {
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-}
-
-p, a, span, div, label, input, textarea, button {
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
-}
-
-/* For UI windows, we want to control the shadow locally */
-.beat-card, .contact-form-window {
-    text-shadow: none;
-}
-.beat-card *, .contact-form-window * {
-    text-shadow: none;
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }

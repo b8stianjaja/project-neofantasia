@@ -1,21 +1,27 @@
 // src/components/Navbar.jsx
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
 import './Navbar.css';
 
 const Navbar = () => {
-    // NOTE: Consider adding a simple sound effect on click here
-    // const playClickSound = () => new Audio('/path/to/click.mp3').play();
+  const { cartCount } = useCart();
 
+  // Use NavLink for active styling
   return (
-    <nav className="navbar" /*onClick={playClickSound}*/>
+    <nav className="navbar">
       <div className="nav-logo-container">
-        <Link to="/" className="nav-logo">BeatForge</Link>
+        <NavLink to="/" className="nav-logo">neofantasia</NavLink>
       </div>
       <div className="nav-links">
-        <Link to="/" className="nav-link">[ Main Hub ]</Link>
-        <Link to="/beats" className="nav-link">[ Sound Library ]</Link>
-        <Link to="/contact" className="nav-link">[ Broadcast ]</Link>
+        <NavLink to="/" className="nav-link" end>Hub</NavLink>
+        <NavLink to="/beats" className="nav-link">Sound Library</NavLink>
+        <NavLink to="/contact" className="nav-link">Broadcast</NavLink>
+      </div>
+      <div className="nav-actions">
+        <NavLink to="/cart" className="nav-link cart-link">
+          Cart ({cartCount})
+        </NavLink>
       </div>
     </nav>
   );
