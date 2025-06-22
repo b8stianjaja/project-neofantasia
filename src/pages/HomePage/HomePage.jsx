@@ -5,12 +5,12 @@ import './HomePage.css';
 function HomePage() {
   return (
     <div className="home-container">
-      <div className="home-content">
+      <div className="dialogue-box">
         <h1 className="home-title">Welcome to BeatForge</h1>
-        <p className="home-subtitle">The ultimate destination for high-quality beats.</p>
+        <p className="home-subtitle">Your journey into sound begins here. Explore a universe of high-quality instrumentals crafted for creators like you.</p>
         <div className="home-cta">
           <Link to="/beats" className="crystal-button">
-            <span>Explore Beats</span>
+            <span>[ Start Exploring ]</span>
           </Link>
         </div>
       </div>
