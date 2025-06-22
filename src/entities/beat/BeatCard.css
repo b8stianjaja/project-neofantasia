@@ -1,0 +1,63 @@
+.beat-card {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid #00ffff;
+    border-radius: 10px;
+    margin: 15px;
+    width: 300px;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.beat-card:hover {
+    transform: translateY(-5px);
+}
+
+.beat-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.beat-info {
+    padding: 15px;
+    color: white;
+}
+
+.beat-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.5rem;
+    margin: 0 0 10px 0;
+}
+
+.beat-details {
+    font-size: 0.9rem;
+    margin: 0 0 15px 0;
+    color: #ccc;
+}
+
+.beat-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.play-button, .add-to-cart-button {
+    background: transparent;
+    border: 1px solid #00ffff;
+    color: #00ffff;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.play-button:hover, .add-to-cart-button:hover {
+    background: #00ffff;
+    color: #000;
+}
+
+.beat-price {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
