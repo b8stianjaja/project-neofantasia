@@ -1,23 +1,22 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import HomePage from './pages/HomePage';
-import BeatsPage from './pages/BeatsPage';
-import ContactPage from './pages/ContactPage';
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import HomePage from "../pages/HomePage/HomePage.jsx"
+import BeatsPage from "../pages/BeatsPage/BeatsPage.jsx"
+import ContactPage from "../pages/ContactPage/ContactPage.jsx"
 
 function App() {
+
   return (
-    <Router>
-      <div className="App">
-        <Navbar />
+    <>
+      <BrowserRouter>
+        <Navbar/>
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<HomePage/>} />
           <Route path="/beats" element={<BeatsPage />} />
           <Route path="/contact" element={<ContactPage />} />
         </Routes>
-      </div>
-    </Router>
-  );
+      </BrowserRouter>
+    </>
+  )
 }
 
-export default App;
+export default App
