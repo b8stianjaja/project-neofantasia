@@ -1,117 +1,105 @@
+/* src/entities/beat/BeatCard.css */
 .beat-card {
-    background: rgba(10, 25, 47, 0.8);
-    border: 1px solid #00ffff;
-    border-radius: 10px;
-    margin: 15px;
-    width: 300px;
-    box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    position: relative;
+  background: var(--ui-bg);
+  border: 1px solid var(--ui-border);
+  backdrop-filter: blur(8px); /* A bit more blur for depth */
+  padding: 1.5rem;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-shadow: none; /* Remove global shadow for UI windows */
 }
 
 .beat-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 0 25px rgba(0, 255, 255, 0.5);
+  transform: translateY(-5px);
+  box-shadow: 0 0 15px rgba(168, 216, 248, 0.5);
+  border-color: var(--highlight-color);
 }
 
 .beat-image-container {
-    position: relative;
+  width: 100%;
+  padding-top: 100%;
+  position: relative;
+  margin-bottom: 1rem;
+  background-color: #000;
 }
 
 .beat-image {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    transition: filter 0.3s ease;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.4s ease;
 }
 
 .beat-card:hover .beat-image {
-    filter: brightness(0.7);
+  opacity: 0.85;
 }
 
-.beat-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: rgba(0, 0, 0, 0.5);
-    opacity: 0;
-    transition: opacity 0.3s ease;
+.play-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-.beat-card:hover .beat-overlay {
-    opacity: 1;
-}
-
-.play-button {
-    background: rgba(0, 255, 255, 0.8);
-    border: none;
-    color: #000;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    font-size: 2rem;
-    cursor: pointer;
-    transition: transform 0.2s ease, background 0.2s ease;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.play-button:hover {
-    transform: scale(1.1);
-    background: #00ffff;
-}
-
-.beat-info {
-    padding: 15px;
-    color: white;
+.beat-card:hover .play-overlay {
+  opacity: 1;
 }
 
 .beat-title {
-    font-size: 1.5rem;
-    margin: 0 0 10px 0;
-    color: #00ffff;
+  font-family: var(--vn-font);
+  font-weight: 700;
+  font-size: 1.7rem;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
 }
 
-.beat-stats {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.9rem;
-    margin-bottom: 15px;
-    color: #ccc;
-    border-top: 1px solid #003333;
-    border-bottom: 1px solid #003333;
-    padding: 5px 0;
+.beat-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  font-family: var(--vn-font);
+  font-size: 1rem;
 }
 
 .beat-actions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.add-to-cart-button {
-    background: transparent;
-    border: 1px solid #00ffff;
-    color: #00ffff;
-    padding: 8px 12px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s ease, color 0.3s ease;
-}
-
-.add-to-cart-button:hover {
-    background: #00ffff;
-    color: #000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .beat-price {
-    font-size: 1.2rem;
-    font-weight: bold;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+/* Updated button style */
+.crystal-button {
+  background: transparent;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  padding: 8px 15px;
+  font-family: var(--vn-font);
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-shadow: none;
+}
+
+.crystal-button:hover {
+  background: var(--highlight-color);
+  color: #000;
+  border-color: var(--highlight-color);
 }

@@ -1,31 +1,62 @@
+/* src/components/Navbar.css */
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #1a1a1a;
-    padding: 1rem 2rem;
-    border-bottom: 1px solid #00ffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 5%;
+  background-color: rgba(10, 10, 10, 0.5);
+  backdrop-filter: blur(5px);
+  border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+  font-family: var(--primary-font);
+}
+
+.nav-logo-container {
+    flex: 1;
 }
 
 .nav-logo {
-    color: #00ffff;
-    text-decoration: none;
-    font-family: 'Cinzel', serif;
-    font-size: 2rem;
+  color: var(--text-color);
+  text-decoration: none;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px var(--primary-color);
 }
 
 .nav-links {
-    display: flex;
-    gap: 1.5rem;
+  flex: 2;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
 }
 
 .nav-link {
-    color: white;
-    text-decoration: none;
-    font-size: 1.1rem;
-    transition: color 0.3s ease;
+  color: var(--text-color);
+  text-decoration: none;
+  font-size: 1.1rem;
+  padding: 5px 10px;
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+  position: relative;
 }
 
-.nav-link:hover {
-    color: #00ffff;
+.nav-link:hover, .nav-link.active {
+  color: var(--primary-color);
+  text-shadow: 0 0 5px var(--primary-color);
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
 }

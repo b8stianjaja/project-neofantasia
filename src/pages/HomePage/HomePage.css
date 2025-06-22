@@ -1,53 +1,63 @@
-.home-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-grow: 1;
-    text-align: center;
-    padding: 2rem;
+/* src/pages/HomePage/HomePage.css */
+.title-screen-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Pushes logo up and nav down */
+  align-items: center;
+  min-height: 100vh;
+  padding: 4rem 0;
+  box-sizing: border-box;
+  animation: fadeIn 2s ease-in-out;
 }
 
-.dialogue-box {
-    background: rgba(0, 0, 0, 0.7);
-    border: 2px solid #00ffff;
-    border-radius: 15px;
-    padding: 2rem 3rem;
-    max-width: 800px;
-    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+.title-logo-wrapper {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.home-title {
-    font-size: 2.5rem;
-    color: #00ffff;
-    margin-bottom: 1rem;
-    text-shadow: 0 0 10px #00ffff;
+.title-logo {
+  font-family: var(--vn-font);
+  font-size: 6rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  text-align: center;
 }
 
-.home-subtitle {
-    font-size: 1.2rem;
-    color: #ccc;
-    line-height: 1.6;
-    margin-bottom: 2rem;
+.bottom-menu-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 1rem 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.5), transparent); /* Subtle gradient for readability */
 }
 
-.home-cta {
-    margin-top: 2rem;
-}
-
-.crystal-button {
-  background: transparent;
-  border: 1px solid #00ffff;
-  color: #00ffff;
-  padding: 15px 30px;
+.bottom-menu-button {
+  font-family: var(--vn-font);
+  color: var(--text-color);
   text-decoration: none;
-  border-radius: 5px;
-  font-size: 1.2rem;
-  transition: background 0.3s, color 0.3s, text-shadow 0.3s;
-  font-weight: bold;
+  font-size: 1.8rem;
+  font-weight: 500;
+  padding: 0 2rem;
+  letter-spacing: 1px;
+  transition: color 0.3s, text-shadow 0.3s;
 }
 
-.crystal-button:hover {
-  background: #00ffff;
-  color: #000;
-  text-shadow: 0 0 5px #000;
+.bottom-menu-button:hover {
+  color: var(--highlight-color);
+  text-shadow: 0 0 5px var(--highlight-color);
+}
+
+.menu-separator {
+  height: 1.5rem;
+  width: 1px;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.bottom-menu-button.disabled {
+  color: #888;
+  pointer-events: none;
+  text-shadow: none;
 }

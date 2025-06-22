@@ -1,28 +1,56 @@
+/* src/app/App.css */
+:root {
+  --vn-font: 'Shippori Mincho', serif;
+  --primary-color: #ffffff;
+  --highlight-color: #a8d8f8; /* Softer, more atmospheric blue */
+  --background-color: #000000;
+  --text-color: #ffffff;
+  --ui-bg: rgba(10, 25, 40, 0.7); /* Slightly bluer UI background */
+  --ui-border: rgba(255, 255, 255, 0.5);
+}
+
 body.vn-body {
-    background: #0d0d0d;
-    color: white;
-    font-family: 'Orbitron', sans-serif;
-    margin: 0;
-    background-image:
-        radial-gradient(at 27% 37%, hsla(215,98%,61%,1) 0px, transparent 50%),
-        radial-gradient(at 97% 21%, hsla(125,98%,72%,1) 0px, transparent 50%),
-        radial-gradient(at 52% 99%, hsla(355,98%,76%,1) 0px, transparent 50%),
-        radial-gradient(at 10% 29%, hsla(256,96%,68%,1) 0px, transparent 50%),
-        radial-gradient(at 97% 96%, hsla(38,60%,74%,1) 0px, transparent 50%),
-        radial-gradient(at 33% 50%, hsla(222,67%,73%,1) 0px, transparent 50%),
-        radial-gradient(at 79% 53%, hsla(343,68%,79%,1) 0px, transparent 50%);
-    background-size: 200% 200%;
-    animation: gradient-animation 15s ease infinite;
+  margin: 0;
+  font-family: var(--vn-font);
+  background-color: var(--background-color);
+  background-image: url('/vn-background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: var(--text-color);
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-weight: 500; /* Use a slightly bolder weight for clarity */
 }
 
-@keyframes gradient-animation {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+.app-container {
+  background-color: rgba(0, 0, 0, 0.3);
+  min-height: 100vh;
 }
 
-#root {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* --- Text Shadow Rules for Readability --- */
+
+h1, h2, h3, h4, h5, h6 {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+p, a, span, div, label, input, textarea, button {
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+/* For UI windows, we want to control the shadow locally */
+.beat-card, .contact-form-window {
+    text-shadow: none;
+}
+.beat-card *, .contact-form-window * {
+    text-shadow: none;
 }

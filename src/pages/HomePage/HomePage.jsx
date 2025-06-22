@@ -1,21 +1,24 @@
+// src/pages/HomePage/HomePage.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './HomePage.css';
 
-function HomePage() {
+const HomePage = () => {
   return (
-    <div className="home-container">
-      <div className="dialogue-box">
-        <h1 className="home-title">Welcome to BeatForge</h1>
-        <p className="home-subtitle">Your journey into sound begins here. Explore a universe of high-quality instrumentals crafted for creators like you.</p>
-        <div className="home-cta">
-          <Link to="/beats" className="crystal-button">
-            <span>[ Start Exploring ]</span>
-          </Link>
-        </div>
+    <div className="title-screen-container">
+      <div className="title-logo-wrapper">
+        <h1 className="title-logo">BeatForge</h1>
       </div>
+
+      <nav className="bottom-menu-nav">
+        <Link to="/beats" className="bottom-menu-button">Begin</Link>
+        <div className="menu-separator"></div>
+        <Link to="/cart" className="bottom-menu-button disabled">Cart</Link>
+        <div className="menu-separator"></div>
+        <Link to="/contact" className="bottom-menu-button">Contact</Link>
+      </nav>
     </div>
   );
-}
+};
 
 export default HomePage;
