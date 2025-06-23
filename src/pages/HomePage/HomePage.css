@@ -1,11 +1,11 @@
-/* src/pages/HomePage/HomePage.css
-  Final Design: Polished, Centered, and Professional
-*/
+/* src/pages/HomePage/HomePage.css - Updated for PNG-based menu */
 
-/* NOTE: The :root variables have been moved to src/app/App.css 
-  to create a single source of truth for styling. This file
-  now only contains styles specific to the HomePage component.
-*/
+@font-face {
+  font-family: 'Royalacid';
+  src: url('/fonts/Royalacid_o.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 
 .title-screen {
   height: 100vh;
@@ -14,18 +14,12 @@
   top: 0;
   left: 0;
   color: var(--color-text);
-  font-family: var(--font-ui); /* Using UI font from global styles */
-
-  /* This background is specific to the home page */
+  font-family: var(--font-ui);
   background-image: url('/bgr/gfwcyan.gif');
   background-size: cover;
   background-position: center;
   background-color: #000;
-
-  /* This animation creates a slow, endless, and captivating pan */
   animation: cinematicPan 60s infinite alternate ease-in-out;
-
-  /* Flexbox is used to center the main content perfectly */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -37,8 +31,6 @@
   to { background-position: 60% 50%; }
 }
 
-/* This overlay adds a vignette and slightly desaturates the background,
-   which pushes the UI forward and creates a more cinematic, focused look. */
 .title-screen::before {
   content: '';
   position: absolute;
@@ -52,17 +44,24 @@
   position: relative;
   z-index: 2;
   animation: fadeIn 2s var(--animation-curve) both;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  max-width: 1200px;
+  padding: 0 1rem;
+  box-sizing: border-box;
 }
 
 .logo-container {
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 }
 
 .title-logo {
-  max-width: 320px;
-  width: 100%;
+  width: 45vw;
+  max-width: 1200px;
   height: auto;
-  filter: drop-shadow(0 5px 25px rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(0 5px 30px rgba(0, 0, 0, 0.6));
 }
 
 .main-menu ul {
@@ -81,40 +80,35 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* --- NEW SIMPLIFIED MENU STYLES --- */
+
+/* This class is now just for controlling link spacing */
 .menu-link {
-  display: inline-block;
-  color: var(--color-text);
+  display: block; /* Important for layout */
+  padding: 0.25rem 0; /* Adjust vertical space between menu items */
   text-decoration: none !important;
-  font-size: 2rem;
-  font-weight: 500;
-  letter-spacing: 2px;
-  padding: 0.75rem 0;
-  position: relative;
-  transition: all 0.4s var(--animation-curve);
+  line-height: 1; /* Prevent extra space from text properties */
 }
 
-.menu-link:hover {
-  color: var(--color-text-hover);
-  letter-spacing: 3px;
-  transform: scale(1.05);
+/* This new class styles your PNG images */
+.menu-image {
+  /* --- ACTION REQUIRED --- */
+  /* Set the height of your menu images. Width will adjust automatically. */
+  height: 50px; 
+  width: auto; /* Maintains aspect ratio */
+  transition: transform 0.2s ease-out;
 }
 
-.menu-link::after {
-  content: '';
-  position: absolute;
-  bottom: 0.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0%;
-  height: 1px;
-  background-color: var(--color-text-hover);
-  box-shadow: 0 0 10px var(--color-glow);
-  transition: width 0.4s var(--animation-curve);
+/* You can still add a simple CSS effect on top of the image swap */
+.menu-link:hover .menu-image {
+  transform: scale(1.1); /* Makes the image slightly larger on hover */
 }
 
-.menu-link:hover::after {
-  width: 50%;
-}
 
 .title-footer {
   position: absolute;
@@ -125,4 +119,23 @@
   font-size: 0.8rem;
   letter-spacing: 1px;
   color: rgba(255, 255, 255, 0.4);
+}
+
+/* ----------------------------------- */
+/* Mobile Responsive Design            */
+/* ----------------------------------- */
+@media (max-width: 768px) {
+
+  .title-logo {
+    width: 80vw;
+  }
+
+  .logo-container {
+    margin-bottom: 2rem;
+  }
+
+  /* Adjust menu image size for smaller screens */
+  .menu-image {
+    height: 40px;
+  }
 }

@@ -1,39 +1,18 @@
-// src/pages/BeatsPage/BeatsPage.jsx
-import React, { useState } from 'react';
-import { beats } from '../../entities/beat/beats';
-import BeatListItem from '../../entities/beat/BeatListItem'; // NEW component
-import './BeatsPage.css';
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import './../Page.css'; // Import the shared page styles
 
-const BeatsPage = () => {
-  const [nowPlaying, setNowPlaying] = useState(null);
-
-  const handlePlay = (beatId) => {
-    setNowPlaying(beatId);
-  };
-
+function BeatsPage() {
   return (
     <div className="page-container">
-      <h1 className="page-title">Sound Library</h1>
-      <div className="beat-list-container">
-        <div className="beat-list-header">
-          <span className="header-play"></span>
-          <span className="header-title">TITLE</span>
-          <span className="header-bpm">BPM</span>
-          <span className="header-key">KEY</span>
-          <span className="header-price">PRICE</span>
-          <span className="header-cart"></span>
-        </div>
-        {beats.map((beat) => (
-          <BeatListItem
-            key={beat.id}
-            beat={beat}
-            isPlaying={nowPlaying === beat.id}
-            onPlay={handlePlay}
-          />
-        ))}
-      </div>
+      <h1 className="page-title">Beats Catalog</h1>
+      {/* Your beat listing components will go here */}
+      <p>Coming soon...</p>
+      <NavLink to="/" className="back-link">
+        &larr; Back to Menu
+      </NavLink>
     </div>
   );
-};
+}
 
 export default BeatsPage;

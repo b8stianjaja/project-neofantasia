@@ -1,17 +1,19 @@
 // src/pages/HomePage/HomePage.jsx
-import React, { useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
-import './HomePage.css';
+import './HomePage.css'; // We will still use this for layout
 
 function HomePage() {
-  // Game-style menu labels that map to your website's pages.
-  // I have fixed the paths to point to your existing pages.
-  // You can add routes for "/saved" and "/licenses" in App.jsx when you create those pages.
+  // state to track which item is being hovered
+  const [hoveredItem, setHoveredItem] = useState(null);
+
+  // --- UPDATED ---
+
   const menuItems = [
-    { path: "/beats", label: "new game" },         // Links to the main beats catalog
-    // { path: "/saved", label: "load game" },     // TODO: Create a SavedBeatsPage and add this route in App.jsx
-    // { path: "/licenses", label: "options" },    // TODO: Create a LicensesPage and add this route in App.jsx
-    { path: "/contact", label: "contact" }         // Links to the Contact page
+    { name: "new game", path: "/beats",    normal: "/menu/newgame12.png", hover: "/menu/newgame12hover.png" },
+    { name: "load game", path: "/load",     normal: "/menu/loadgame12.png", hover: "/menu/loadgame12hover.png" },
+    { name: "config", path: "/config",   normal: "/menu/config12.png", hover: "/menu/config12hover.png" },
+    { name: "exit", path: "/contact",  normal: "/menu/exit12.png", hover: "/menu/exit12hover.png" }
   ];
 
   const hoverSoundRef = useRef(null);
@@ -33,34 +35,40 @@ function HomePage() {
 
   return (
     <main className="title-screen">
-      {/* NOTE: Ensure your audio and image files are in the `public` directory.
-        - /public/audio/menu-hover.wav
-        - /public/audio/menu-click.wav
-        - /public/bgr/rl.png (for the logo)
-        - /public/bgr/gfwcyan.gif (for the background, defined in CSS)
-      */}
       <audio ref={hoverSoundRef} src="/audio/menu-hover.wav" preload="auto"></audio>
       <audio ref={clickSoundRef} src="/audio/menu-click.wav" preload="auto"></audio>
 
       <div className="title-content">
         <div className="logo-container">
-          <img src="/bgr/rl.png" alt="Artist Logo" className="title-logo" />
+          <img src="/bgr/neofantasia2.png" alt="Artist Logo" className="title-logo" />
         </div>
 
         <nav className="main-menu">
           <ul>
             {menuItems.map((item, index) => (
               <li
-                key={item.label}
-                onMouseEnter={playHoverSound}
+                key={item.name}
+                // We now handle hover state here
+                onMouseEnter={() => {
+                  setHoveredItem(item.name);
+                  playHoverSound();
+                }}
+                onMouseLeave={() => setHoveredItem(null)}
                 style={{ animationDelay: `${0.2 + index * 0.1}s` }}
               >
                 <NavLink
                   to={item.path}
-                  className="menu-link"
+                  className="menu-link" // This class is now for layout
                   onClick={playClickSound}
                 >
-                  {item.label}
+                  {/* The image source changes based on hover state */}
+                  <img
+                    className="menu-image"
+                    src={hoveredItem === item.name ? item.hover : item.normal}
+                    alt={item.name}
+                    // Add an error handler for missing images
+                    onError={(e) => { e.target.style.display='none'; console.error(`Failed to load image: ${e.target.src}`)}}
+                  />
                 </NavLink>
               </li>
             ))}

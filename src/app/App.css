@@ -1,111 +1,49 @@
-/* src/app/App.css */
+/* src/App.css */
 
-/* Font Imports */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
-
-/* Root variables consolidated from all CSS files.
-  This is now the single source of truth for your design system.
+/* Define the color palette and fonts for the entire application.
+  This is the single source of truth for your design system.
 */
 :root {
   /* Fonts */
-  --font-primary: 'Noto Sans JP', 'Shippori Mincho', sans-serif;
-  --font-vn: 'Shippori Mincho', serif; /* Visual Novel style font */
-  --font-ui: 'Montserrat', sans-serif; /* Modern UI font */
-
+  --font-primary: 'Inter', sans-serif; /* A clean font for body text */
+  --font-ui: 'Orbitron', sans-serif; /* A futuristic font for UI elements like your homepage menu */
+  
   /* Colors */
-  --color-text: #e0e0e0;
-  --color-text-hover: #ffffff;
-  --color-text-muted: #888;
-  --color-background: #0d1117; /* Very dark, soft blue/black */
-  --color-highlight: #6ab7ff; /* Clean, bright blue for highlights */
-  --color-glow: rgba(180, 220, 255, 0.3);
-
-  /* UI Elements */
-  --ui-background: rgba(16, 22, 32, 0.7);
-  --ui-border: rgba(106, 183, 255, 0.2);
-  --ui-border-hover: rgba(106, 183, 255, 0.6);
+  --color-background: #0a0a0f; /* Very dark blue, almost black */
+  --color-surface: #10101a;   /* Slightly lighter surface for cards */
+  --color-primary: #00bfff;   /* Deep sky blue for accents */
+  --color-text: #e0e0e0;       /* Off-white for readability */
+  --color-text-hover: #ffffff; /* Pure white for hover states */
+  --color-glow: rgba(0, 191, 255, 0.5);
 
   /* Animation */
-  --animation-curve: cubic-bezier(0.16, 1, 0.3, 1);
+  --animation-curve: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
+
+/* You MUST import the fonts in your main index.html file for them to work.
+  Add these lines to the <head> of your `index.html`:
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+*/
 
 body {
   margin: 0;
-  font-family: var(--font-primary);
+  padding: 0;
   background-color: var(--color-background);
   color: var(--color-text);
-  
-  /* This high-quality background is for pages OTHER than the homepage */
-  background-image: url('/background.jpg');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+  font-family: var(--font-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-#root {
-  backdrop-filter: blur(3px) brightness(0.9);
-  min-height: 100vh;
-}
-
-/* General Page Styling */
-.page-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 4rem 2rem;
-  animation: fadeIn 1s ease-in-out;
-}
-
-.page-title {
-  font-family: var(--font-ui);
-  font-size: 2.5rem;
-  font-weight: 300;
-  letter-spacing: 2px;
-  color: var(--color-highlight);
-  border-bottom: 1px solid var(--ui-border);
-  padding-bottom: 1rem;
-  margin-bottom: 2rem;
-}
-
-/* Reusable Crystal Button Style from BeatCard.css */
-.crystal-button {
-  background: transparent;
-  border: 1px solid var(--color-highlight);
-  color: var(--color-highlight);
-  padding: 8px 15px;
-  font-family: var(--font-ui);
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s;
-  text-shadow: none;
-}
-
-.crystal-button:hover {
-  background: var(--color-highlight);
-  color: #000;
-  border-color: var(--color-highlight);
-}
-
-.crystal-button:disabled {
-  border-color: var(--ui-border);
-  color: var(--color-text-muted);
-  background: transparent;
-  cursor: not-allowed;
-}
-
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+.app-container {
+  /* You can add global container styles here if needed */
+  width: 100%;
 }
 
 a {
-  color: var(--color-highlight);
   text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
+  color: var(--color-primary);
 }
