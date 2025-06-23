@@ -1,15 +1,17 @@
-// src/pages/HomePage.jsx
+// src/pages/HomePage/HomePage.jsx
 import React, { useRef } from 'react';
 import { NavLink } from 'react-router-dom';
-import './HomePage.css'; // Linking to the new, final CSS design.
+import './HomePage.css';
 
 function HomePage() {
   // Game-style menu labels that map to your website's pages.
+  // I have fixed the paths to point to your existing pages.
+  // You can add routes for "/saved" and "/licenses" in App.jsx when you create those pages.
   const menuItems = [
     { path: "/beats", label: "new game" },         // Links to the main beats catalog
-    { path: "/saved", label: "load game" },        // Links to saved/favorited beats
-    { path: "/licenses-faq", label: "options" },   // Links to Licenses/FAQ page
-    { path: "/contact", label: "contact" }         // Using Contact as an "Exit" or "Credits" alternative
+    // { path: "/saved", label: "load game" },     // TODO: Create a SavedBeatsPage and add this route in App.jsx
+    // { path: "/licenses", label: "options" },    // TODO: Create a LicensesPage and add this route in App.jsx
+    { path: "/contact", label: "contact" }         // Links to the Contact page
   ];
 
   const hoverSoundRef = useRef(null);
@@ -18,25 +20,28 @@ function HomePage() {
   const playHoverSound = () => {
     if (hoverSoundRef.current) {
       hoverSoundRef.current.currentTime = 0;
-      hoverSoundRef.current.play().catch(e => {});
+      hoverSoundRef.current.play().catch(e => console.error("Audio play failed:", e));
     }
   };
 
   const playClickSound = () => {
     if (clickSoundRef.current) {
       clickSoundRef.current.currentTime = 0;
-      clickSoundRef.current.play().catch(e => {});
+      clickSoundRef.current.play().catch(e => console.error("Audio play failed:", e));
     }
   };
 
   return (
     <main className="title-screen">
-      {/* Background and overlay elements are handled entirely in CSS for a cleaner component */}
-      
+      {/* NOTE: Ensure your audio and image files are in the `public` directory.
+        - /public/audio/menu-hover.wav
+        - /public/audio/menu-click.wav
+        - /public/bgr/rl.png (for the logo)
+        - /public/bgr/gfwcyan.gif (for the background, defined in CSS)
+      */}
       <audio ref={hoverSoundRef} src="/audio/menu-hover.wav" preload="auto"></audio>
       <audio ref={clickSoundRef} src="/audio/menu-click.wav" preload="auto"></audio>
 
-      {/* Main container for all centered content */}
       <div className="title-content">
         <div className="logo-container">
           <img src="/bgr/rl.png" alt="Artist Logo" className="title-logo" />
@@ -64,7 +69,7 @@ function HomePage() {
       </div>
 
       <footer className="title-footer">
-        <p>© {new Date().getFullYear()} Your Artist Name. All Rights Reserved.</p>
+        <p>© {new Date().getFullYear()} neofantasia. All Rights Reserved.</p>
       </footer>
     </main>
   );

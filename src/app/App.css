@@ -1,20 +1,34 @@
-/* Using a more modern, clean font stack */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500&display=swap');
+/* src/app/App.css */
 
+/* Font Imports */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
+/* Root variables consolidated from all CSS files.
+  This is now the single source of truth for your design system.
+*/
 :root {
+  /* Fonts */
   --font-primary: 'Noto Sans JP', 'Shippori Mincho', sans-serif;
-  
-  /* A softer, more ethereal color palette */
+  --font-vn: 'Shippori Mincho', serif; /* Visual Novel style font */
+  --font-ui: 'Montserrat', sans-serif; /* Modern UI font */
+
+  /* Colors */
   --color-text: #e0e0e0;
+  --color-text-hover: #ffffff;
   --color-text-muted: #888;
-  --color-background: #0d1117; /* A very dark, soft blue/black */
-  --color-highlight: #6ab7ff; /* A clean, bright blue for highlights */
-  --color-highlight-glow: rgba(106, 183, 255, 0.5);
-  
+  --color-background: #0d1117; /* Very dark, soft blue/black */
+  --color-highlight: #6ab7ff; /* Clean, bright blue for highlights */
+  --color-glow: rgba(180, 220, 255, 0.3);
+
   /* UI Elements */
   --ui-background: rgba(16, 22, 32, 0.7);
   --ui-border: rgba(106, 183, 255, 0.2);
   --ui-border-hover: rgba(106, 183, 255, 0.6);
+
+  /* Animation */
+  --animation-curve: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 body {
@@ -23,8 +37,8 @@ body {
   background-color: var(--color-background);
   color: var(--color-text);
   
-  /* Replace with a high-quality, atmospheric background image */
-  background-image: url('/background.jpg'); /* SUGGESTION: Use a serene, beautiful image */
+  /* This high-quality background is for pages OTHER than the homepage */
+  background-image: url('/background.jpg');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -44,6 +58,7 @@ body {
 }
 
 .page-title {
+  font-family: var(--font-ui);
   font-size: 2.5rem;
   font-weight: 300;
   letter-spacing: 2px;
@@ -53,7 +68,44 @@ body {
   margin-bottom: 2rem;
 }
 
+/* Reusable Crystal Button Style from BeatCard.css */
+.crystal-button {
+  background: transparent;
+  border: 1px solid var(--color-highlight);
+  color: var(--color-highlight);
+  padding: 8px 15px;
+  font-family: var(--font-ui);
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-shadow: none;
+}
+
+.crystal-button:hover {
+  background: var(--color-highlight);
+  color: #000;
+  border-color: var(--color-highlight);
+}
+
+.crystal-button:disabled {
+  border-color: var(--ui-border);
+  color: var(--color-text-muted);
+  background: transparent;
+  cursor: not-allowed;
+}
+
+
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+a {
+  color: var(--color-highlight);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }

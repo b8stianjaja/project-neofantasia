@@ -1,13 +1,11 @@
-/* src/pages/HomePage.css
+/* src/pages/HomePage/HomePage.css
   Final Design: Polished, Centered, and Professional
 */
 
-:root {
-  --text-color: rgba(255, 255, 255, 0.75);
-  --text-hover-color: #ffffff;
-  --glow-color: rgba(180, 220, 255, 0.3);
-  --animation-curve: cubic-bezier(0.16, 1, 0.3, 1);
-}
+/* NOTE: The :root variables have been moved to src/app/App.css 
+  to create a single source of truth for styling. This file
+  now only contains styles specific to the HomePage component.
+*/
 
 .title-screen {
   height: 100vh;
@@ -15,14 +13,14 @@
   position: fixed;
   top: 0;
   left: 0;
-  background-color: #000;
-  color: var(--text-color);
-  font-family: 'Montserrat', sans-serif;
+  color: var(--color-text);
+  font-family: var(--font-ui); /* Using UI font from global styles */
 
-  /* Use the more vibrant background for a strong visual impact */
+  /* This background is specific to the home page */
   background-image: url('/bgr/gfwcyan.gif');
   background-size: cover;
   background-position: center;
+  background-color: #000;
 
   /* This animation creates a slow, endless, and captivating pan */
   animation: cinematicPan 60s infinite alternate ease-in-out;
@@ -56,11 +54,6 @@
   animation: fadeIn 2s var(--animation-curve) both;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
 .logo-container {
   margin-bottom: 2rem;
 }
@@ -69,7 +62,6 @@
   max-width: 320px;
   width: 100%;
   height: auto;
-  /* A clean, soft drop-shadow to lift the logo from the background */
   filter: drop-shadow(0 5px 25px rgba(0, 0, 0, 0.5));
 }
 
@@ -80,7 +72,6 @@
 }
 
 .main-menu li {
-  /* Animate each menu item in sequence */
   opacity: 0;
   animation: fadeInUp 1s var(--animation-curve) forwards;
 }
@@ -92,7 +83,7 @@
 
 .menu-link {
   display: inline-block;
-  color: var(--text-color);
+  color: var(--color-text);
   text-decoration: none !important;
   font-size: 2rem;
   font-weight: 500;
@@ -102,10 +93,8 @@
   transition: all 0.4s var(--animation-curve);
 }
 
-/* Polished hover effect: text becomes brighter, spacing increases,
-   and a subtle glowing line animates underneath. */
 .menu-link:hover {
-  color: var(--text-hover-color);
+  color: var(--color-text-hover);
   letter-spacing: 3px;
   transform: scale(1.05);
 }
@@ -118,8 +107,8 @@
   transform: translateX(-50%);
   width: 0%;
   height: 1px;
-  background-color: var(--text-hover-color);
-  box-shadow: 0 0 10px var(--glow-color);
+  background-color: var(--color-text-hover);
+  box-shadow: 0 0 10px var(--color-glow);
   transition: width 0.4s var(--animation-curve);
 }
 
@@ -127,7 +116,6 @@
   width: 50%;
 }
 
-/* The footer is minimal and unobtrusive */
 .title-footer {
   position: absolute;
   bottom: 1rem;
