@@ -1,11 +1,16 @@
 // src/pages/HomePage/HomePage.jsx
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import './HomePage.css'; // We will still use this for layout
 
 function HomePage() {
   // state to track which item is being hovered
   const [hoveredItem, setHoveredItem] = useState(null);
+
+  // Reference for background music
+  const backgroundMusicRef = useRef(null);
+
+  // --- UPDATED ---
 
   const menuItems = [
     { name: "new game", path: "/beats",    normal: "/menu/newgame12.png", hover: "/menu/newgame12hover.png" },
@@ -16,50 +21,44 @@ function HomePage() {
 
   const hoverSoundRef = useRef(null);
   const clickSoundRef = useRef(null);
-  const bgMusicRef = useRef(null); // Ref for background music
-
-  // --- Background Music Playback Logic ---
-  useEffect(() => {
-    if (bgMusicRef.current) {
-      bgMusicRef.current.volume = 0.3; // Set a default volume (0.0 to 1.0)
-
-      // This attempts to play the audio unmuted immediately upon component mount.
-      bgMusicRef.current.play().catch(e => {
-        // This catch block will log any errors if autoplay is blocked by the browser.
-        console.error("Background music direct autoplay failed:", e);
-      });
-    }
-  }, []); // Run once on component mount
 
   const playHoverSound = () => {
     if (hoverSoundRef.current) {
       hoverSoundRef.current.currentTime = 0;
-      hoverSoundRef.current.play().catch(e => console.error("Hover audio play failed:", e));
+      hoverSoundRef.current.play().catch(e => console.error("Audio play failed:", e));
     }
   };
 
   const playClickSound = () => {
     if (clickSoundRef.current) {
       clickSoundRef.current.currentTime = 0;
-      clickSoundRef.current.play().catch(e => console.error("Click audio play failed:", e));
+      clickSoundRef.current.play().catch(e => console.error("Audio play failed:", e));
+    }
+  };
+
+  // Function to play background music
+  const playBackgroundMusic = () => {
+    if (backgroundMusicRef.current) {
+      backgroundMusicRef.current.play().catch(e => console.error("Background music play failed:", e));
+    }
+  };
+
+  // Function to pause background music
+  const pauseBackgroundMusic = () => {
+    if (backgroundMusicRef.current) {
+      backgroundMusicRef.current.pause();
     }
   };
 
   return (
-    <main className="title-screen">
-      {/* Background Music Audio Tag - Attempts to play unmuted automatically */}
-      <audio
-        ref={bgMusicRef}
-        src="/sfx/title-theme.wav" // **IMPORTANT: Provide your background music file path here**
-        autoPlay // Enable autoplay
-        loop     // Loop the music
-        muted={false} // Explicitly set to false to attempt unmuted playback
-        preload="auto"
-      ></audio>
-
-      {/* Existing Menu Hover/Click Sounds */}
-      <audio ref={hoverSoundRef} src="/audio/menu-hover.wav" preload="auto"></audio>
+    <main
+      className="title-screen"
+      onMouseEnter={playBackgroundMusic} // Play music when mouse enters page
+      onMouseLeave={pauseBackgroundMusic} // Pause music when mouse leaves page
+    >
+      <audio ref={hoverSoundRef} src="/sfx/hover.wav" preload="auto"></audio>
       <audio ref={clickSoundRef} src="/audio/menu-click.wav" preload="auto"></audio>
+      <audio ref={backgroundMusicRef} src="/sfx/title-theme.wav" loop preload="auto"></audio> {/* Add this line for background music */}
 
       <div className="title-content">
         <div className="logo-container">
@@ -71,6 +70,7 @@ function HomePage() {
             {menuItems.map((item, index) => (
               <li
                 key={item.name}
+                // We now handle hover state here
                 onMouseEnter={() => {
                   setHoveredItem(item.name);
                   playHoverSound();
@@ -80,13 +80,15 @@ function HomePage() {
               >
                 <NavLink
                   to={item.path}
-                  className="menu-link"
+                  className="menu-link" // This class is now for layout
                   onClick={playClickSound}
                 >
+                  {/* The image source changes based on hover state */}
                   <img
                     className="menu-image"
                     src={hoveredItem === item.name ? item.hover : item.normal}
                     alt={item.name}
+                    // Add an error handler for missing images
                     onError={(e) => { e.target.style.display='none'; console.error(`Failed to load image: ${e.target.src}`)}}
                   />
                 </NavLink>
