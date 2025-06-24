@@ -1,22 +1,27 @@
-// src/pages/HomePage/HomePage.jsx
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import './HomePage.css'; // We will still use this for layout
+import { useMusic } from '../../context/MusicContext'; // Import the hook
+import './HomePage.css';
 
 function HomePage() {
-  // state to track which item is being hovered
   const [hoveredItem, setHoveredItem] = useState(null);
+  const { play, pause } = useMusic(); // Use play/pause from context
 
-  // Reference for background music
-  const backgroundMusicRef = useRef(null);
+  // This hook runs when the component mounts
+  useEffect(() => {
+    play(); // Play the music
 
-  // --- UPDATED ---
+    // Return a cleanup function to pause music when navigating away
+    return () => {
+      pause();
+    };
+  }, [play, pause]);
 
   const menuItems = [
-    { name: "new game", path: "/beats",    normal: "/menu/newgame12.png", hover: "/menu/newgame12hover.png" },
-    { name: "load game", path: "/load",     normal: "/menu/loadgame12.png", hover: "/menu/loadgame12hover.png" },
-    { name: "config", path: "/config",   normal: "/menu/config12.png", hover: "/menu/config12hover.png" },
-    { name: "exit", path: "/contact",  normal: "/menu/exit12.png", hover: "/menu/exit12hover.png" }
+    { name: "new game", path: "/beats", normal: "/menu/newgame12.png", hover: "/menu/newgame12hover.png" },
+    { name: "load game", path: "/load", normal: "/menu/loadgame12.png", hover: "/menu/loadgame12hover.png" },
+    { name: "config", path: "/config", normal: "/menu/config12.png", hover: "/menu/config12hover.png" },
+    { name: "exit", path: "/contact", normal: "/menu/exit12.png", hover: "/menu/exit12hover.png" }
   ];
 
   const hoverSoundRef = useRef(null);
@@ -36,29 +41,12 @@ function HomePage() {
     }
   };
 
-  // Function to play background music
-  const playBackgroundMusic = () => {
-    if (backgroundMusicRef.current) {
-      backgroundMusicRef.current.play().catch(e => console.error("Background music play failed:", e));
-    }
-  };
-
-  // Function to pause background music
-  const pauseBackgroundMusic = () => {
-    if (backgroundMusicRef.current) {
-      backgroundMusicRef.current.pause();
-    }
-  };
-
   return (
-    <main
-      className="title-screen"
-      onMouseEnter={playBackgroundMusic} // Play music when mouse enters page
-      onMouseLeave={pauseBackgroundMusic} // Pause music when mouse leaves page
-    >
+    // The onMouseEnter and onMouseLeave events are removed
+    <main className="title-screen">
       <audio ref={hoverSoundRef} src="/sfx/hover.wav" preload="auto"></audio>
       <audio ref={clickSoundRef} src="/audio/menu-click.wav" preload="auto"></audio>
-      <audio ref={backgroundMusicRef} src="/sfx/title-theme.wav" loop preload="auto"></audio> {/* Add this line for background music */}
+      {/* The main background music <audio> tag is no longer needed here */}
 
       <div className="title-content">
         <div className="logo-container">
@@ -70,7 +58,6 @@ function HomePage() {
             {menuItems.map((item, index) => (
               <li
                 key={item.name}
-                // We now handle hover state here
                 onMouseEnter={() => {
                   setHoveredItem(item.name);
                   playHoverSound();
@@ -80,15 +67,13 @@ function HomePage() {
               >
                 <NavLink
                   to={item.path}
-                  className="menu-link" // This class is now for layout
+                  className="menu-link"
                   onClick={playClickSound}
                 >
-                  {/* The image source changes based on hover state */}
                   <img
                     className="menu-image"
                     src={hoveredItem === item.name ? item.hover : item.normal}
                     alt={item.name}
-                    // Add an error handler for missing images
                     onError={(e) => { e.target.style.display='none'; console.error(`Failed to load image: ${e.target.src}`)}}
                   />
                 </NavLink>

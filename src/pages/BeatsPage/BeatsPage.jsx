@@ -5,11 +5,11 @@ import './../Page.css'; // Import the shared page styles
 function BeatsPage() {
   return (
     <div className="page-container">
-      <h1 className="page-title">Beats Catalog</h1>
+      <h1 className="page-title">INSTRUMENTALS</h1>
       {/* Your beat listing components will go here */}
-      <p>Coming soon...</p>
+      <p>EN BREVE...</p>
       <NavLink to="/" className="back-link">
-        &larr; Back to Menu
+        &larr; baq
       </NavLink>
     </div>
   );
