@@ -1,57 +1,43 @@
-import React, { useState, useRef } from 'react';
-import { useCart } from '../../context/CartContext'; // Import useCart
+import React, { useState, useContext } from 'react';
 import './BeatCard.css';
+import { CartContext } from '../../context/CartContext';
+import { MusicContext } from '../../context/MusicContext';
 
 function BeatCard({ beat }) {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const audioRef = useRef(null);
-  const { addToCart, cartItems } = useCart(); // Get addToCart function and cartItems
+  const [isExpanded, setIsExpanded] = useState(false);
+  const { addToCart } = useContext(CartContext);
+  const { playTrack, currentTrack, isPlaying } = useContext(MusicContext);
 
-  const isInCart = cartItems.some(item => item.id === beat.id);
+  const isCurrentlyPlaying = currentTrack?.id === beat.id && isPlaying;
 
-  const togglePlay = (e) => {
-    e.stopPropagation(); // Prevent card click when clicking button
-    if (isPlaying) {
-      audioRef.current.pause();
-    } else {
-      audioRef.current.play();
-    }
-    setIsPlaying(!isPlaying);
+  const handleCardClick = () => {
+    // Toggle play/pause
+    playTrack(beat);
+
+    // Also toggle the expanded view for details
+    setIsExpanded(!isExpanded);
   };
 
   const handleAddToCart = (e) => {
-    e.stopPropagation();
+    e.stopPropagation(); // Prevent the card click from firing again
     addToCart(beat);
-  }
+    console.log(`Added ${beat.title} to cart`);
+  };
+
+  // Dynamically apply a class if the card is expanded
+  const cardClassName = `beat-card ${isExpanded ? 'expanded' : ''}`;
 
   return (
-    <div className="beat-card">
-      <div className="beat-image-container">
-        <img src={beat.image} alt={beat.title} className="beat-image" />
-        <div className="beat-overlay" onClick={togglePlay}>
-          <button className="play-button">
-            {isPlaying ? '❚❚' : '▶'}
-          </button>
-        </div>
-      </div>
-      <div className="beat-info-main">
+    <div className={cardClassName} onClick={handleCardClick}>
+      <img src={beat.artwork} alt={beat.title} className="beat-artwork" />
+
+      <div className="beat-info-overlay">
         <h3 className="beat-title">{beat.title}</h3>
-        <div className="beat-stats">
-          <span>BPM: {beat.bpm}</span>
-          <span>KEY: {beat.key}</span>
-        </div>
-        <div className="beat-actions">
-          <p className="beat-price">${beat.price.toFixed(2)}</p>
-          <button 
-            className="crystal-button add-to-cart-button"
-            onClick={handleAddToCart}
-            disabled={isInCart}
-          >
-            {isInCart ? 'Added' : 'Add to Cart'}
-          </button>
-        </div>
+        <p className="beat-price">${beat.price}</p>
+        <button onClick={handleAddToCart} className="add-to-cart-btn">
+          Add to Cart
+        </button>
       </div>
-      <audio ref={audioRef} src={beat.audioSrc} loop onEnded={() => setIsPlaying(false)} />
     </div>
   );
 }

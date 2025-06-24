@@ -1,24 +1,78 @@
-/* src/pages/BeatsPage/BeatsPage.css */
-.beat-list-container {
-  background: var(--ui-background);
-  border: 1px solid var(--ui-border);
-  border-radius: 5px;
-  overflow: hidden;
+/* --- Parallax Styles --- */
+
+.parallax {
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  perspective: 300px; /* The perspective from which the scene is viewed */
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none; /* For Internet Explorer and Edge */
 }
 
-.beat-list-header {
-  display: grid;
-  grid-template-columns: 50px 3fr 1fr 1fr 1fr 100px;
-  align-items: center;
-  gap: 1rem;
-  padding: 0.75rem 1.5rem;
-  border-bottom: 1px solid var(--ui-border);
-  color: var(--color-text-muted);
-  font-weight: 500;
-  text-transform: uppercase;
-  font-size: 0.8rem;
-  letter-spacing: 1px;
+.parallax::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Opera */
 }
-.header-title { text-align: left; }
-.header-bpm, .header-key, .header-price { text-align: center; }
-.header-cart { text-align: right; }
+
+.parallax__group {
+  position: relative;
+  height: 100vh;
+  transform-style: preserve-3d;
+}
+
+.parallax__layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+/* --- Layer Speeds & Styling --- */
+
+/* Farthest back, moves slowest */
+.parallax__layer--back {
+  transform: translateZ(-300px) scale(2);
+  background-image: url('/bgr/gfwcyan.gif');
+  background-size: cover;
+  background-position: center;
+  animation: cinematicPan 60s infinite alternate ease-in-out;
+}
+
+/* Middle layer for titles or other elements */
+.parallax__layer--base {
+  transform: translateZ(0);
+}
+
+/* Foreground layer for the beat elements, moves fastest */
+.parallax__layer--fore {
+  transform: translateZ(150px) scale(0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 10vh;
+  gap: 20vh; /* Creates vertical space between beat elements */
+}
+
+
+/* --- Page Specific Styles --- */
+
+.beats-page-container {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden; /* Hide scrollbars from the container itself */
+  background-color: #000;
+}
+
+.beats-page-title {
+  color: #fff;
+  text-align: center;
+  font-size: 3rem;
+  text-shadow: 0 0 15px rgba(0, 255, 255, 0.7);
+  padding-top: 15vh;
+}
+
+/* Keyframe animation from InteractionScreen for consistency */
+@keyframes cinematicPan {
+  from { background-position: 40% 50%; }
+  to { background-position: 60% 50%; }
+}
