@@ -1,42 +1,52 @@
-import React, { useState, useContext } from 'react';
+import React from 'react';
+import { useMusic } from '../../context/MusicContext';
+import { useCart } from '../../context/CartContext';
 import './BeatCard.css';
-import { CartContext } from '../../context/CartContext';
-import { MusicContext } from '../../context/MusicContext';
 
-function BeatCard({ beat }) {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const { addToCart } = useContext(CartContext);
-  const { playTrack, currentTrack, isPlaying } = useContext(MusicContext);
+function BeatCard({ beat, offset }) {
+  const { playTrack, currentTrack, isPlaying } = useMusic();
+  const { addToCart } = useCart();
 
-  const isCurrentlyPlaying = currentTrack?.id === beat.id && isPlaying;
+  const isThisBeatPlaying = currentTrack?.id === beat.id && isPlaying;
 
-  const handleCardClick = () => {
-    // Toggle play/pause
+  const handlePlayClick = (e) => {
+    e.stopPropagation();
     playTrack(beat);
-
-    // Also toggle the expanded view for details
-    setIsExpanded(!isExpanded);
   };
-
+  
   const handleAddToCart = (e) => {
-    e.stopPropagation(); // Prevent the card click from firing again
+    e.stopPropagation();
     addToCart(beat);
-    console.log(`Added ${beat.title} to cart`);
   };
 
-  // Dynamically apply a class if the card is expanded
-  const cardClassName = `beat-card ${isExpanded ? 'expanded' : ''}`;
+  // The card is only active and clickable if it's in the center
+  const isActive = offset === 0;
 
   return (
-    <div className={cardClassName} onClick={handleCardClick}>
-      <img src={beat.artwork} alt={beat.title} className="beat-artwork" />
-
-      <div className="beat-info-overlay">
+    <div 
+      className="beat-card"
+      data-active={isActive}
+      style={{
+        '--offset': offset,
+        'pointerEvents': isActive ? 'auto' : 'none'
+      }}
+    >
+      <div className="artwork-container">
+        <img src={beat.artwork} alt={beat.title} className="beat-artwork" />
+        <div className="artwork-overlay">
+          <button className="play-button" onClick={handlePlayClick}>
+            <span className="play-icon">{isThisBeatPlaying ? '❚❚' : '▶'}</span>
+          </button>
+        </div>
+      </div>
+      <div className="beat-info">
         <h3 className="beat-title">{beat.title}</h3>
-        <p className="beat-price">${beat.price}</p>
-        <button onClick={handleAddToCart} className="add-to-cart-btn">
-          Add to Cart
-        </button>
+        <div className="beat-purchase-info">
+          <span className="beat-price">${beat.price}</span>
+          <button className="add-to-cart-button" onClick={handleAddToCart}>
+            Add to Cart
+          </button>
+        </div>
       </div>
     </div>
   );

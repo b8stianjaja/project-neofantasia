@@ -1,62 +1,37 @@
-export const beats = [
+// Define the array as a constant. Do NOT export it on this line.
+const beats = [
   {
     id: 'beat1',
-    title: 'Midnight Pulse',
+    name: 'Midnight Pulse', // Using 'name' to match the last working version
     artist: 'Neofantasia',
     genre: 'Trap',
     bpm: 140,
     price: 29.99,
-    audioSrc: '/audio/midnight_pulse.mp3',
-    artwork: '/art/midnight_pulse.png',
+    audioSrc: '/sfx/title-theme.wav',
+    artwork: '/artwork/artw1.png', // Ensure you have artwork images
   },
   {
     id: 'beat2',
-    title: 'Dreamscape Echoes',
+    name: 'Dreamscape Echoes',
     artist: 'Neofantasia',
     genre: 'Lo-Fi',
     bpm: 80,
     price: 29.99,
-    audioSrc: '/audio/dreamscape_echoes.mp3',
-    artwork: '/art/dreamscape_echoes.png',
+    audioSrc: '/sfx/title-theme.wav',
+    artwork: '/artwork/artw1.png',
   },
   {
     id: 'beat3',
-    title: 'Energetic Flow',
+    name: 'Energetic Flow',
     artist: 'Neofantasia',
     genre: 'Pop',
     bpm: 128,
     price: 29.99,
-    audioSrc: '/audio/energetic_flow.mp3',
-    artwork: '/art/energetic_flow.png',
+    audioSrc: '/sfx/energetic_flow.mp3',
+    artwork: '/artwork/artw1.png',
   },
-  {
-    id: 'beat4',
-    title: 'Mystic Groove',
-    artist: 'Neofantasia',
-    genre: 'R&B',
-    bpm: 95,
-    price: 29.99,
-    audioSrc: '/audio/mystic_groove.mp3',
-    artwork: '/art/mystic_groove.png',
-  },
-  {
-    id: 'beat5',
-    title: 'Cosmic Drift',
-    artist: 'Neofantasia',
-    genre: 'Ambient',
-    bpm: 60,
-    price: 29.99,
-    audioSrc: '/audio/cosmic_drift.mp3',
-    artwork: '/art/cosmic_drift.png',
-  },
-  {
-    id: 'beat6',
-    title: 'Urban Grime',
-    artist: 'Neofantasia',
-    genre: 'Grime',
-    bpm: 130,
-    price: 29.99,
-    audioSrc: '/audio/urban_grime.mp3',
-    artwork: '/art/urban_grime.png',
-  },
+  // Add your other beats here...
 ];
+
+// **THE FIX IS HERE:** Use "export default" at the end of the file.
+export default beats;

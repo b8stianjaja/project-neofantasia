@@ -1,36 +1,54 @@
-import React from 'react';
-import { beats } from '../../entities/beat/beats';
+import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import beats from '../../entities/beat/beats';
 import BeatCard from '../../entities/beat/BeatCard';
 import './BeatsPage.css';
 
 function BeatsPage() {
-  // We need to calculate a dynamic height for the parallax group
-  // to ensure all beats are displayed as the user scrolls.
-  const groupHeight = 100 + (beats.length * 40); // Base vh + extra vh per beat
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const handlePrev = () => {
+    setActiveIndex((prevIndex) => 
+      prevIndex === 0 ? beats.length - 1 : prevIndex - 1
+    );
+  };
+
+  const handleNext = () => {
+    setActiveIndex((prevIndex) =>
+      prevIndex === beats.length - 1 ? 0 : prevIndex + 1
+    );
+  };
 
   return (
-    <div className="beats-page-container">
-      <div className="parallax">
-
-        {/* Layer 1: Background */}
-        <div className="parallax__group" style={{ height: `${groupHeight}vh` }}>
-          <div className="parallax__layer parallax__layer--back"></div>
-
-          {/* Layer 2: Base Layer (for titles, etc.) */}
-          <div className="parallax__layer parallax__layer--base">
-            <h1 className="beats-page-title">Discover the Soundscape</h1>
-          </div>
-
-          {/* Layer 3: Foreground (interactive beat elements) */}
-          <div className="parallax__layer parallax__layer--fore">
-            {beats.map((beat) => (
-              <BeatCard key={beat.id} beat={beat} />
-            ))}
-          </div>
+    <main className="beats-page-container">
+      <div className="background-glow"></div>
+      
+      <div className="carousel-wrapper">
+        <div className="carousel-deck">
+          {beats.map((beat, i) => {
+            const offset = i - activeIndex;
+            return (
+              <BeatCard key={beat.id} beat={beat} offset={offset} />
+            );
+          })}
         </div>
-
       </div>
-    </div>
+
+      <div className="carousel-navigation">
+        <button className="nav-button prev-button" onClick={handlePrev}>
+          &lt;
+        </button>
+        <button className="nav-button next-button" onClick={handleNext}>
+          &gt;
+        </button>
+      </div>
+
+      <footer className="beats-page-footer">
+        <NavLink to="/" className="back-link">
+          &larr; Back to Menu
+        </NavLink>
+      </footer>
+    </main>
   );
 }
 
