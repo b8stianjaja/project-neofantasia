@@ -1,16 +1,17 @@
+// src/main.jsx
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './app/App.jsx';
-import { CartProvider } from './context/CartContext.jsx'; // Correctly imports the provider
-import './app/App.css'; // Correctly imports global styles
+import './app/App.css';
+// REMOVE: import { CartProvider } from './context/CartContext';
+import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    {/* This CartProvider wrapper makes your shopping cart work across all pages.
-      Any component in your app can now use the `useCart()` hook to access it.
-    */}
-    <CartProvider>
-      <App />
-    </CartProvider>
+    <BrowserRouter> {/* BrowserRouter remains as the single top-level router */}
+      {/* REMOVE: <CartProvider> */}
+        <App />
+      {/* REMOVE: </CartProvider> */}
+    </BrowserRouter>
   </React.StrictMode>,
 );

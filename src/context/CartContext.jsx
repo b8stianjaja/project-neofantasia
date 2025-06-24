@@ -13,20 +13,21 @@ export const useCart = () => {
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
 
+  // Logic to add a beat to the cart, reverting to original structure
   const addToCart = (beat) => {
-    // Logic to add a beat to the cart
-    // Prevents adding duplicates
     setCartItems(prevItems => {
+      // Prevents adding duplicates based on beat.id
       if (!prevItems.find(item => item.id === beat.id)) {
         return [...prevItems, beat];
       }
       return prevItems;
     });
-    console.log(`${beat.title} added to cart!`);
+    // Log message for original beat structure
+    console.log(`${beat.title || beat.name} added to cart!`); // Use title or name
   };
 
+  // Logic to remove a beat, reverting to original structure
   const removeFromCart = (beatId) => {
-    // Logic to remove a beat
     setCartItems(prevItems => prevItems.filter(item => item.id !== beatId));
   };
 

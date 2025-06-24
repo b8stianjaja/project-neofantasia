@@ -1,29 +1,66 @@
+// src/entities/beat/beats.js
+// Remove: import { licenses } from '../../data/licenses';
+
 export const beats = [
   {
-    id: 1,
-    title: 'Crystal Caves',
-    bpm: 120,
-    key: 'C Minor',
-    price: 29.99,
-    image: 'https://via.placeholder.com/300x180.png/00ffff/000000?text=Crystal+Caves',
-    audioSrc: '/audio/crystal-caves.mp3', // Replace with your audio file path
-  },
-  {
-    id: 2,
-    title: 'Neon Drive',
+    id: 'beat1',
+    name: 'Midnight Pulse',
+    artist: 'Neofantasia',
+    genre: 'Trap',
     bpm: 140,
-    key: 'F# Minor',
-    price: 29.99,
-    image: 'https://via.placeholder.com/300x180.png/ff00ff/000000?text=Neon+Drive',
-    audioSrc: '/audio/neon-drive.mp3', // Replace with your audio file path
+    audioSrc: '/audio/midnight_pulse.mp3',
+    // REMOVE: color: '#6A5ACD',
+    // REMOVE: availableLicenses: [licenses[0].id, licenses[1].id],
   },
   {
-    id: 3,
-    title: 'Sakura Falls',
-    bpm: 90,
-    key: 'A Major',
-    price: 24.99,
-    image: 'https://via.placeholder.com/300x180.png/ff69b4/000000?text=Sakura+Falls',
-    audioSrc: '/audio/sakura-falls.mp3', // Replace with your audio file path
+    id: 'beat2',
+    name: 'Dreamscape Echoes',
+    artist: 'Neofantasia',
+    genre: 'Lo-Fi',
+    bpm: 80,
+    audioSrc: '/audio/dreamscape_echoes.mp3',
+    // REMOVE: color: '#00CED1',
+    // REMOVE: availableLicenses: [licenses[0].id, licenses[1].id, licenses[2].id],
   },
+  {
+    id: 'beat3',
+    name: 'Energetic Flow',
+    artist: 'Neofantasia',
+    genre: 'Pop',
+    bpm: 128,
+    audioSrc: '/audio/energetic_flow.mp3',
+    // REMOVE: color: '#FF6347',
+    // REMOVE: availableLicenses: [licenses[0].id, licenses[1].id],
+  },
+  {
+    id: 'beat4',
+    name: 'Mystic Groove',
+    artist: 'Neofantasia',
+    genre: 'R&B',
+    bpm: 95,
+    audioSrc: '/audio/mystic_groove.mp3',
+    // REMOVE: color: '#DAA520',
+    // REMOVE: availableLicenses: [licenses[0].id, licenses[1].id],
+  },
+  {
+    id: 'beat5',
+    name: 'Cosmic Drift',
+    artist: 'Neofantasia',
+    genre: 'Ambient',
+    bpm: 60,
+    audioSrc: '/audio/cosmic_drift.mp3',
+    // REMOVE: color: '#8A2BE2',
+    // REMOVE: availableLicenses: [licenses[0].id],
+  },
+  {
+    id: 'beat6',
+    name: 'Urban Grime',
+    artist: 'Neofantasia',
+    genre: 'Grime',
+    bpm: 130,
+    audioSrc: '/audio/urban_grime.mp3',
+    // REMOVE: color: '#B22222',
+    // REMOVE: availableLicenses: [licenses[0].id, licenses[1].id],
+  },
+  // Keep your other beats as they were originally
 ];
