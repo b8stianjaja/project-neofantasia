@@ -8,12 +8,14 @@ import { CartProvider } from './context/CartContext.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+    {/* This is the ONLY router for the entire app */}
     <BrowserRouter>
-      <MusicProvider musicSrc="/sfx/title-theme.wav">
-        <CartProvider>
+      {/* Both providers wrap the App component */}
+      <CartProvider>
+        <MusicProvider>
           <App />
-        </CartProvider>
-      </MusicProvider>
+        </MusicProvider>
+      </CartProvider>
     </BrowserRouter>
   </React.StrictMode>,
 );

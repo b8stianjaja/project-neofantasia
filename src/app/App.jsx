@@ -15,15 +15,14 @@ function App() {
   }
 
   return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/beats" element={<BeatsPage />} />
-      <Route path="/cart" element={<CartPage />} />
-      <Route path="/contact" element={<ContactPage />} />
-      {/* You can add routes for these placeholder links from your HomePage */}
-      <Route path="/load" element={<BeatsPage />} /> 
-      <Route path="/config" element={<ContactPage />} />
-    </Routes>
+    <div className="App">
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/beats" element={<BeatsPage />} />
+        <Route path="/cart" element={<CartPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+      </Routes>
+    </div>
   );
 }
 

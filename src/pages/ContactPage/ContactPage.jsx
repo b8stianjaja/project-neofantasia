@@ -8,7 +8,7 @@ function ContactPage() {
       <h1 className="page-title">CONTATO</h1>
       <p>EN BREVE...</p>
       <NavLink to="/" className="back-link">
-        &larr; baq
+        &larr; back {/* FIX IS HERE: "baq" changed to "back" */}
       </NavLink>
     </div>
   );

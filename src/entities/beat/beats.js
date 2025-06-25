@@ -1,18 +1,17 @@
-// Define the array as a constant. Do NOT export it on this line.
 const beats = [
   {
     id: 'beat1',
-    name: 'Midnight Pulse', // Using 'name' to match the last working version
+    title: 'Midnight Pulse', // FIX: Changed 'name' to 'title'
     artist: 'Neofantasia',
     genre: 'Trap',
     bpm: 140,
     price: 29.99,
     audioSrc: '/sfx/title-theme.wav',
-    artwork: '/artwork/artw1.png', // Ensure you have artwork images
+    artwork: '/artwork/artw1.png',
   },
   {
     id: 'beat2',
-    name: 'Dreamscape Echoes',
+    title: 'Dreamscape Echoes', // FIX: Changed 'name' to 'title'
     artist: 'Neofantasia',
     genre: 'Lo-Fi',
     bpm: 80,
@@ -22,7 +21,7 @@ const beats = [
   },
   {
     id: 'beat3',
-    name: 'Energetic Flow',
+    title: 'Energetic Flow', // FIX: Changed 'name' to 'title'
     artist: 'Neofantasia',
     genre: 'Pop',
     bpm: 128,
@@ -30,8 +29,46 @@ const beats = [
     audioSrc: '/sfx/energetic_flow.mp3',
     artwork: '/artwork/artw1.png',
   },
-  // Add your other beats here...
+  {
+    id: 'beat4',
+    title: 'Cosmic Drift', // Added for better ring effect
+    artist: 'Neofantasia',
+    genre: 'Ambient',
+    bpm: 100,
+    price: 29.99,
+    audioSrc: '/sfx/title-theme.wav',
+    artwork: '/artwork/artw1.png',
+  },
+  {
+    id: 'beat5',
+    title: 'Streetlight Soul', // Added for better ring effect
+    artist: 'Neofantasia',
+    genre: 'Hip-Hop',
+    bpm: 90,
+    price: 29.99,
+    audioSrc: '/sfx/energetic_flow.mp3',
+    artwork: '/artwork/artw1.png',
+  },
+  {
+    id: 'beat6',
+    title: 'Neon Drive', // Added for better ring effect
+    artist: 'Neofantasia',
+    genre: 'Synthwave',
+    bpm: 120,
+    price: 29.99,
+    audioSrc: '/sfx/title-theme.wav',
+    artwork: '/artwork/artw1.png',
+  },
+  {
+    id: 'beat7',
+    title: 'Lunar Tides', // Added for better ring effect
+    artist: 'Neofantasia',
+    genre: 'Chillwave',
+    bpm: 110,
+    price: 29.99,
+    audioSrc: '/sfx/energetic_flow.mp3',
+    artwork: '/artwork/artw1.png',
+  }
 ];
 
-// **THE FIX IS HERE:** Use "export default" at the end of the file.
 export default beats;

@@ -1,21 +1,12 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
-import { useMusic } from '../../context/MusicContext'; // Import the hook
 import './HomePage.css';
+// We no longer need to import useMusic here
 
 function HomePage() {
   const [hoveredItem, setHoveredItem] = useState(null);
-  const { play, pause } = useMusic(); // Use play/pause from context
 
-  // This hook runs when the component mounts
-  useEffect(() => {
-    play(); // Play the music
-
-    // Return a cleanup function to pause music when navigating away
-    return () => {
-      pause();
-    };
-  }, [play, pause]);
+  // THE FIX: The useEffect that called play() and pause() has been completely removed.
 
   const menuItems = [
     { name: "new game", path: "/beats", normal: "/menu/newgame12.png", hover: "/menu/newgame12hover.png" },
@@ -42,11 +33,9 @@ function HomePage() {
   };
 
   return (
-    // The onMouseEnter and onMouseLeave events are removed
     <main className="title-screen">
       <audio ref={hoverSoundRef} src="/sfx/hover.wav" preload="auto"></audio>
       <audio ref={clickSoundRef} src="/audio/menu-click.wav" preload="auto"></audio>
-      {/* The main background music <audio> tag is no longer needed here */}
 
       <div className="title-content">
         <div className="logo-container">

@@ -1,13 +1,13 @@
-/* src/entities/beat/BeatListItem.css */
 .beat-list-item {
   display: grid;
-  grid-template-columns: 50px 3fr 1fr 1fr 1fr 100px;
+  grid-template-columns: 50px 1fr 70px 70px 80px 80px;
   align-items: center;
   gap: 1rem;
   padding: 0.75rem 1.5rem;
-  border-bottom: 1px solid var(--ui-border);
+  border-bottom: 1px solid #282828;
   cursor: pointer;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
+  transition: background-color 0.2s ease;
+  font-size: 0.9rem;
 }
 
 .beat-list-item:last-child {
@@ -15,14 +15,20 @@
 }
 
 .beat-list-item:hover {
-  background-color: rgba(106, 183, 255, 0.05);
+  background-color: #282828;
+}
+
+.beat-list-item.selected {
+  background-color: #2a2a2a;
 }
 
 .beat-list-item.playing {
-  background-color: rgba(106, 183, 255, 0.1);
-  border-left: 3px solid var(--color-highlight);
-  border-right: 3px solid var(--color-highlight);
-  margin: 0 -3px;
+  background-color: #333;
+  color: white;
+}
+.beat-list-item.playing .item-bpm,
+.beat-list-item.playing .item-key {
+  color: white;
 }
 
 .item-play-status {
@@ -30,15 +36,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  color: #a0a0a0;
+}
+
+.beat-list-item:hover .item-play-status {
+  color: white;
 }
 
 .play-icon {
-  color: var(--color-text-muted);
-  transition: color 0.2s ease;
+  font-size: 14px;
+  transition: transform 0.2s ease;
 }
 
 .beat-list-item:hover .play-icon {
-  color: var(--color-highlight);
+  transform: scale(1.2);
 }
 
 .item-title-container {
@@ -51,65 +62,85 @@
   width: 40px;
   height: 40px;
   object-fit: cover;
-  border-radius: 3px;
+  border-radius: 4px;
 }
 
-.item-title {
-  font-size: 1.1rem;
-  font-weight: 500;
-}
-
-.item-bpm, .item-key, .item-price {
+.item-bpm,
+.item-key,
+.item-price {
   text-align: center;
-  color: var(--color-text-muted);
+  color: #a0a0a0;
 }
 
 .item-price {
-  color: var(--color-text);
+  color: white;
   font-weight: 500;
 }
 
 .item-cart-action {
-  text-align: right;
+  text-align: center;
 }
 
 .add-to-cart-btn {
-  background: transparent;
-  border: 1px solid var(--ui-border);
-  color: var(--color-text-muted);
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  font-size: 1.2rem;
+  background: #333;
+  border: 1px solid #444;
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  font-weight: bold;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .add-to-cart-btn:hover {
-  background-color: var(--color-highlight);
-  color: var(--color-background);
-  border-color: var(--color-highlight);
+  background-color: #444;
+  border-color: #555;
 }
 
 .add-to-cart-btn:disabled {
-    color: var(--color-highlight);
-    cursor: default;
-    background: transparent;
+  background-color: #1DB954;
+  color: white;
+  border-color: #1DB954;
+  cursor: default;
 }
 
+/* --- FINAL, ELEGANT WAVEFORM STYLES --- */
+.waveform {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end; /* Bars grow from the bottom */
+  height: 16px;
+  width: 20px; /* Adjusted width for 5 bars */
+  gap: 2px;
+}
 
-/* Waveform Animation */
-.waveform { display: flex; align-items: flex-end; height: 16px; gap: 2px; }
 .waveform-bar {
-  width: 3px;
-  background: var(--color-highlight);
-  animation: wave 1.2s infinite ease-in-out;
+  width: 2px;
+  background-color: #1DB954;
+  border-radius: 2px; /* Softens the look of the bars */
+  animation: swell 2s infinite ease-in-out; /* Slower, smoother animation */
 }
-.waveform-bar:nth-child(2) { animation-delay: -1.0s; }
-.waveform-bar:nth-child(3) { animation-delay: -0.8s; }
-.waveform-bar:nth-child(4) { animation-delay: -0.6s; }
 
-@keyframes wave {
-  0%, 100% { height: 2px; }
-  50% { height: 16px; }
+/* New, gentler "swell" animation */
+@keyframes swell {
+  0%, 100% {
+    transform: scaleY(0.15); /* Start and end small */
+  }
+  50% {
+    transform: scaleY(1.0); /* Grow to full height in the middle */
+  }
+}
+
+/* Symmetrical animation delay for an elegant pulse from the center */
+.waveform-bar:nth-child(3) {
+  animation-delay: 0s;
+}
+.waveform-bar:nth-child(2),
+.waveform-bar:nth-child(4) {
+  animation-delay: 0.25s;
+}
+.waveform-bar:nth-child(1),
+.waveform-bar:nth-child(5) {
+  animation-delay: 0.5s;
 }
