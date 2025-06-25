@@ -1,3 +1,4 @@
+// src/pages/InteractionScreen/InteractionScreen.jsx
 import React, { useState, useEffect, useRef } from 'react'; // Import useRef
 import { useMusic } from '../../context/MusicContext';
 import './InteractionScreen.css';
@@ -8,12 +9,12 @@ const animationImages = [
   '/menu/pab4.png', // Frame 2
 ];
 
-const sequence = [0, 1, 2, -1]; 
+const sequence = [0, 1, 2, -1];
 
 const InteractionScreen = ({ onInteract }) => {
-  const { unlock } = useMusic();
+  const { unlock } = useMusic(); // Get unlock from context
   const [sequenceIndex, setSequenceIndex] = useState(0);
-  
+
   // Use a ref to hold the timeout ID so we can clear it properly
   const timeoutRef = useRef(null);
 
@@ -21,7 +22,7 @@ const InteractionScreen = ({ onInteract }) => {
     // This function will run our animation step-by-step
     const runAnimationStep = () => {
       const currentFrameValue = sequence[sequenceIndex];
-      
+
       // --- RHYTHMIC TIMING LOGIC ---
       // Use a fast delay between visible images, but a longer delay on the "nothing" frame.
       const delay = currentFrameValue === -1 ? 450 : 150;
@@ -40,18 +41,21 @@ const InteractionScreen = ({ onInteract }) => {
   }, [sequenceIndex]); // Re-run this effect every time the sequenceIndex changes
 
   useEffect(() => {
+    // This handles the user interaction for sound unlocking and proceeding
     const handleInteraction = () => {
-      unlock();
-      onInteract();
+      unlock(); // Call the MusicContext unlock
+      onInteract(); // Call the prop passed from App.jsx to hide this screen
     };
 
+    // Listen for common interaction events
     const events = ['mousedown', 'keydown', 'scroll'];
-    events.forEach(event => document.addEventListener(event, handleInteraction, { once: true }));
+    events.forEach(event => document.addEventListener(event, handleInteraction, { once: true })); // `once: true` ensures it only fires once
 
+    // Cleanup listeners
     return () => {
       events.forEach(event => document.removeEventListener(event, handleInteraction));
     };
-  }, [onInteract, unlock]);
+  }, [onInteract, unlock]); // Dependencies for useEffect
 
   const currentFrame = sequence[sequenceIndex];
 
@@ -59,9 +63,9 @@ const InteractionScreen = ({ onInteract }) => {
     <div className="interaction-screen">
       <div className="interaction-content">
         {currentFrame !== -1 && (
-          <img 
-            src={animationImages[currentFrame]} 
-            alt="Press any button to start" 
+          <img
+            src={animationImages[currentFrame]}
+            alt="Press any button to start"
             className="prompt-image"
           />
         )}

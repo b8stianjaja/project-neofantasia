@@ -1,44 +1,50 @@
+// src/entities/beat/BeatCard.jsx
 import React, { useState, useRef } from 'react';
 import { useMusic } from '../../context/MusicContext';
 import { useCart } from '../../context/CartContext';
 import './BeatCard.css';
 
 function BeatCard({ beat, cardIndex, totalCards, isActive }) {
-  const { playTrack, currentTrack, isPlaying } = useMusic();
+  // Use activeTrack and playBeat for consistency
+  const { playBeat, activeTrack, isPlaying } = useMusic();
   const { addToCart } = useCart();
   const cardRef = useRef(null);
   const [dynamicStyle, setDynamicStyle] = useState({});
 
-  const isThisBeatPlaying = currentTrack?.id === beat.id && isPlaying;
+  // Check if this specific beat is the active one and is currently playing
+  const isThisBeatPlaying = activeTrack?.id === beat.id && isPlaying;
 
   const handlePlayClick = (e) => {
-    e.stopPropagation();
-    playTrack(beat);
+    e.stopPropagation(); // Prevent potential parent click events
+    playBeat(beat); // Use playBeat as defined in MusicContext
   };
-  
+
   const handleAddToCart = (e) => {
-    e.stopPropagation();
+    e.stopPropagation(); // Prevent potential parent click events
     addToCart(beat);
   };
 
+  // Mouse move effect for 3D tilt
   const handleMouseMove = (e) => {
     if (!isActive || !cardRef.current) return;
     const { clientX, clientY } = e;
     const { top, left, width, height } = cardRef.current.getBoundingClientRect();
-    const x = (clientX - left - width / 2) / 15;
+    const x = (clientX - left - width / 2) / 15; // Adjust divisor for tilt intensity
     const y = -(clientY - top - height / 2) / 15;
     setDynamicStyle({ transform: `scale(1.05) rotateY(${x}deg) rotateX(${y}deg)` });
   };
 
+  // Reset tilt on mouse leave
   const handleMouseLeave = () => {
     setDynamicStyle({ transform: 'scale(1) rotateY(0deg) rotateX(0deg)' });
   };
 
+  // Calculate angle for circular layout (if used in a carousel)
   const angle = (360 / totalCards) * cardIndex;
-  const radius = '450px';
+  const radius = '450px'; // Example radius
 
   return (
-    <div 
+    <div
       ref={cardRef}
       className="beat-card"
       data-active={isActive}
@@ -49,16 +55,18 @@ function BeatCard({ beat, cardIndex, totalCards, isActive }) {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
-      <div 
-        className="card-inner-wrapper" 
-        style={{ 
+      <div
+        className="card-inner-wrapper"
+        style={{
           transform: isActive ? dynamicStyle.transform : undefined,
+          transition: isActive ? 'transform 0.1s ease-out' : undefined, // Smooth transition
         }}
       >
         <div className="artwork-container">
           <img src={beat.artwork} alt={beat.title} className="beat-artwork" />
           <div className="artwork-overlay">
             <button className="play-button" onClick={handlePlayClick}>
+              {/* Show play or pause icon based on status */}
               <span className="play-icon">{isThisBeatPlaying ? '❚❚' : '▶'}</span>
             </button>
           </div>

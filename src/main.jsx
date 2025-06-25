@@ -1,21 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './app/App.jsx';
-import './app/App.css';
-import { BrowserRouter } from 'react-router-dom';
-import { MusicProvider } from './context/MusicContext.jsx';
-import { CartProvider } from './context/CartContext.jsx';
+import { BrowserRouter as Router } from 'react-router-dom';
+import App from './app/App';
+import { MusicProvider } from './context/MusicContext';
+import { CartProvider } from './context/CartContext';
+import './app/App.css'; // Assuming you have a global stylesheet
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    {/* This is the ONLY router for the entire app */}
-    <BrowserRouter>
-      {/* Both providers wrap the App component */}
-      <CartProvider>
-        <MusicProvider>
+    <Router>
+      <MusicProvider>
+        <CartProvider>
           <App />
-        </MusicProvider>
-      </CartProvider>
-    </BrowserRouter>
-  </React.StrictMode>,
+        </CartProvider>
+      </MusicProvider>
+    </Router>
+  </React.StrictMode>
 );

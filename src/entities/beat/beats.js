@@ -1,23 +1,23 @@
 const beats = [
   {
     id: 'beat1',
-    title: 'Midnight Pulse', // FIX: Changed 'name' to 'title'
+    title: '𝑆𝑡𝑖𝑙𝑙', // FIX: Changed 'name' to 'title'
     artist: 'Neofantasia',
     genre: 'Trap',
     bpm: 140,
     price: 29.99,
-    audioSrc: '/sfx/title-theme.wav',
+    audioSrc: '/sfx/still.mp3',
     artwork: '/artwork/artw1.png',
   },
   {
     id: 'beat2',
-    title: 'Dreamscape Echoes', // FIX: Changed 'name' to 'title'
+    title: '𝑆ℎ𝑟𝑖𝑛𝑒', // FIX: Changed 'name' to 'title'
     artist: 'Neofantasia',
     genre: 'Lo-Fi',
     bpm: 80,
     price: 29.99,
-    audioSrc: '/sfx/title-theme.wav',
-    artwork: '/artwork/artw1.png',
+    audioSrc: '/sfx/shrine.mp3',
+    artwork: '/artwork/image.png',
   },
   {
     id: 'beat3',
