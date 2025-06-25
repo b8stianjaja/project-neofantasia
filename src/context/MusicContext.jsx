@@ -1,59 +1,98 @@
 import React, { createContext, useState, useContext, useRef, useCallback, useEffect } from 'react';
 import { Howl } from 'howler';
 
-const themeMusicSrc = '/sfx/title-theme.wav'; 
-
 const MusicContext = createContext();
 
 export const useMusic = () => useContext(MusicContext);
 
 export const MusicProvider = ({ children }) => {
-  const themeSoundRef = useRef(null);
-  const beatSoundRef = useRef(null);
-  const progressIntervalRef = useRef(null);
-  
   const [currentBeat, setCurrentBeat] = useState(null);
   const [isBeatPlaying, setIsBeatPlaying] = useState(false);
   const [playbackInfo, setPlaybackInfo] = useState({ seek: 0, duration: 0 });
+  const beatSoundRef = useRef(null);
+  const themeSoundRef = useRef(null);
+  const progressIntervalRef = useRef(null);
+
+  const unlock = useCallback(() => {
+    if (themeSoundRef.current?.state() === 'unloaded') {
+      themeSoundRef.current.load();
+    }
+  }, []);
+
+  useEffect(() => {
+    themeSoundRef.current = new Howl({
+      src: ['/sfx/title-theme.wav'],
+      loop: true,
+      volume: 0.2,
+      html5: true,
+    });
+    return () => {
+      themeSoundRef.current?.unload();
+      beatSoundRef.current?.unload();
+      if (progressIntervalRef.current) {
+        clearInterval(progressIntervalRef.current);
+      }
+    };
+  }, []);
+
+  const stopProgressTracking = useCallback(() => {
+    if (progressIntervalRef.current) {
+      clearInterval(progressIntervalRef.current);
+      progressIntervalRef.current = null;
+    }
+  }, []);
 
   const startProgressTracking = useCallback(() => {
-    clearInterval(progressIntervalRef.current);
+    stopProgressTracking();
     progressIntervalRef.current = setInterval(() => {
-      if (beatSoundRef.current) {
-        setPlaybackInfo({ seek: beatSoundRef.current.seek() || 0, duration: beatSoundRef.current.duration() || 0 });
+      const sound = beatSoundRef.current;
+      if (sound?.playing()) {
+        const seek = sound.seek();
+        const duration = sound.duration();
+        setPlaybackInfo({ seek, duration });
       }
     }, 100);
-  }, []);
-  
-  const stopProgressTracking = useCallback(() => {
-    clearInterval(progressIntervalRef.current);
-  }, []);
+  }, [stopProgressTracking]);
 
   const playBeat = useCallback((track) => {
-    // Always pause the theme when a beat action occurs
     themeSoundRef.current?.pause();
 
-    // If it's the same track and it's just paused, resume it.
+    // Case 1: The user is resuming the *same* track.
     if (currentBeat?.id === track.id && beatSoundRef.current) {
       beatSoundRef.current.play();
-      return;
+      setIsBeatPlaying(true);
+      startProgressTracking();
+      return; // Exit early
     }
 
-    // Otherwise, play the new track.
-    beatSoundRef.current?.unload();
+    // Case 2: The user is playing a *new* track. We must safely clean up the old one.
+    if (beatSoundRef.current) {
+      // FIX: Remove all event listeners before unloading to prevent race conditions.
+      beatSoundRef.current.off('play').off('pause').off('end');
+      beatSoundRef.current.unload();
+    }
+
+    // Now, create and play the new sound.
     const newSound = new Howl({
-      src: [track.audioSrc], html5: true,
-      onplay: () => { setIsBeatPlaying(true); startProgressTracking(); },
-      onpause: () => setIsBeatPlaying(false),
+      src: [track.audioSrc],
+      html5: true,
+      onplay: () => {
+        setIsBeatPlaying(true);
+        startProgressTracking();
+      },
+      onpause: () => {
+        setIsBeatPlaying(false);
+        stopProgressTracking();
+      },
       onend: () => {
         setIsBeatPlaying(false);
         setCurrentBeat(null);
         stopProgressTracking();
         setPlaybackInfo({ seek: 0, duration: 0 });
-        // When a beat ends, resume the theme
         themeSoundRef.current?.play();
       },
     });
+    
     beatSoundRef.current = newSound;
     setCurrentBeat(track);
     newSound.play();
@@ -64,29 +103,17 @@ export const MusicProvider = ({ children }) => {
       beatSoundRef.current.pause();
     }
   }, []);
-  
-  // THE FIX: This function now starts the theme music automatically
-  const unlock = useCallback(() => {
-    if (!themeSoundRef.current) {
-      themeSoundRef.current = new Howl({
-        src: [themeMusicSrc], loop: true, volume: 0.4, html5: true
-      });
-      // Play theme for the first time on first interaction
-      themeSoundRef.current.play();
-    }
-  }, []);
 
   const seekTo = useCallback((percentage) => {
-    if (beatSoundRef.current?.duration()) {
-      beatSoundRef.current.seek(beatSoundRef.current.duration() * percentage);
+    const sound = beatSoundRef.current;
+    if (sound?.duration()) {
+      sound.seek(sound.duration() * percentage);
     }
   }, []);
 
-  useEffect(() => { return () => clearInterval(progressIntervalRef.current); }, []);
-
   const value = {
-    unlock, // The only function needed by initial interaction
-    playBeat, 
+    unlock,
+    playBeat,
     pauseBeat,
     seekTo,
     currentTrack: currentBeat,

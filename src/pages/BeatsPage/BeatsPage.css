@@ -19,7 +19,7 @@
 /* --- Left Column --- */
 .beat-list-container {
   background: #86c7e06b; /* Slightly lighter background */
-  border: 1px solid #282828;
+  border: 1px solid #ffffff;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -36,7 +36,7 @@
   color: #a0a0a0;
   text-transform: uppercase;
   letter-spacing: 1.5px;
-  border-bottom: 1px solid #282828;
+  border-bottom: 1px solid #ffffff;
 }
 .beat-list-header > span:first-of-type {
   grid-column: 2; /* Align 'Track' header with track titles */

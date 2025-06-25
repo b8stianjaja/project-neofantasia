@@ -13,7 +13,6 @@ const formatTime = (secs) => {
 
 function BeatsPage() {
   const [selectedBeat, setSelectedBeat] = useState(beats[0]);
-  // Importing the new explicit functions
   const { playBeat, pauseBeat, currentTrack, isPlaying, playbackInfo, seekTo } = useMusic();
   
   const timelineRef = useRef(null);
@@ -22,7 +21,6 @@ function BeatsPage() {
     setSelectedBeat(beat);
   };
   
-  // New, separate handlers for clarity and reliability
   const handlePlay = (beat) => {
     setSelectedBeat(beat);
     playBeat(beat);
@@ -43,7 +41,7 @@ function BeatsPage() {
   const displayBeat = currentTrack || selectedBeat;
   const isPlayingSelectedBeat = currentTrack?.id === displayBeat?.id && isPlaying;
   const progressPercent = currentTrack?.id === displayBeat?.id && playbackInfo.duration > 0 ? (playbackInfo.seek / playbackInfo.duration) * 100 : 0;
-  const beatDuration = currentTrack?.id === displayBeat?.id ? playbackInfo.duration : displayBeat.duration;
+  const beatDuration = displayBeat?.duration || playbackInfo.duration;
   const currentTime = formatTime(isPlayingSelectedBeat ? playbackInfo.seek : 0);
   const totalTime = formatTime(beatDuration);
 
@@ -57,25 +55,27 @@ function BeatsPage() {
           <span>Price</span>
         </div>
         <div className="beat-list-items">
-          {beats.map((beat) => (
-            <BeatListItem
-              key={beat.id}
-              beat={beat}
-              isPlaying={currentTrack?.id === beat.id && isPlaying}
-              isSelected={selectedBeat?.id === beat.id}
-              // Pass both handlers down as props
-              onPlay={() => handlePlay(beat)}
-              onPause={handlePause}
-              onSelect={() => handleSelectBeat(beat)}
-            />
-          ))}
+          {beats.map((beat) => {
+            const isThisBeatPlaying = currentTrack?.id === beat.id && isPlaying;
+            return (
+              <BeatListItem
+                key={beat.id}
+                beat={beat}
+                isPlaying={isThisBeatPlaying}
+                isSelected={selectedBeat?.id === beat.id}
+                onPlay={() => handlePlay(beat)}
+                onPause={handlePause}
+                onSelect={() => handleSelectBeat(beat)}
+              />
+            );
+          })}
         </div>
       </div>
       <div className="artwork-display-container">
         {displayBeat && (
           <>
-            <img src={displayBeat.artwork} alt={displayBeat.name} className={`artwork-image ${isPlayingSelectedBeat ? 'playing' : ''}`} />
-            <h2 className="artwork-title">{displayBeat.name}</h2>
+            <img src={displayBeat.artwork} alt={displayBeat.title} className={`artwork-image ${isPlayingSelectedBeat ? 'playing' : ''}`} />
+            <h2 className="artwork-title">{displayBeat.title}</h2>
             <div ref={timelineRef} className="timeline-container" onClick={handleSeek}>
               <div className="timeline-progress" style={{ width: `${progressPercent}%` }}>
                 <div className="timeline-handle"></div>
